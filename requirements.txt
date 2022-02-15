@@ -1,0 +1,7 @@
+Django==4.0.2
+Pillow==9.0.1
+pyfiglet==0.8.post1
+sqlparse==0.4.2
+termcolor==1.1.0
+termcolor2==0.0.3
+tzdata==2021.5
