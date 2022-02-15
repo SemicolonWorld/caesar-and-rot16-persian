@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'metcrypt/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'metcrypt/css/vazir/vazir.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    <nav class="nav">
+      <ul class="nav__menu">
+        <li class="nav__item">
+          <a href="{% url 'metcrypt:caesar' %}" class="nav__link {% block status_caesar %}{% endblock %}">سزار</a>
+        </li>
+        <li class="nav__item">
+          <a href="{% url 'metcrypt:rot16' %}" class="nav__link {% block status_rot16 %}{% endblock %}">روت 16</a>
+        </li>
+        <div class="nav__menu--box"></div>
+      </ul>
+      <i class="fas fa-unlock nav__logo"></i>
+    </nav>
+    <h1 class="title">{% block title_main %}{% endblock %}</h1>
+    {% if text and result %}
+      <form method="POST">
+        {% csrf_token %}
+        <section class="section">
+          <div class="section__containter">
+            <textarea rows="7" name="text" placeholder="متن خود را وارد کنید...">{{ text }}</textarea>
+            <textarea rows="7" class="dis" name="result" disabled>{{ result }}</textarea>
+          </div>
+          <select name="encordec">
+            {% if encordec == "encrypt" %}
+              <option value="encrypt" selected>رمزگذاری</option>
+              <option value="decrypt">رمزگشایی</option>
+            {% elif encordec == 'decrypt' %}
+              <option value="encrypt">رمزگذاری</option>
+              <option value="decrypt" selected>رمزگشایی</option>
+            {% endif %}
+          </select>
+          <button type="submit">تایید</button>
+        </section>
+      </form>
+    {% else %}
+      <form method="POST">
+        {% csrf_token %}
+        <section class="section">
+          <div class="section__containter">
+            <textarea rows="7" name="text" placeholder="متن خود را وارد کنید..."></textarea>
+            <textarea rows="7" class="dis" name="result" disabled></textarea>
+          </div>
+          <select name="encordec">
+            <option value="encrypt">رمزگذاری</option>
+            <option value="decrypt">رمزگشایی</option>
+          </select>
+          <button type="submit">تایید</button>
+        </section>
+      </form>
+    {% endif %}
+    <div class="git-hub">
+      <i class="fab fa-github"></i>
+      <div class="git-hub__developer">
+        <a href="https://github.com/MohammadBaratii" target="__blank"
+          >front-end developer</a
+        >
+      </div>
+      <div class="git-hub__developer">
+        <a href="https://github.com/metidotpy" target="__blank"
+          >back-end developer</a
+        >
+      </div>
+    </div>
+  </body>
+  <script src="{% static 'metcrypt/js/script.js' %}"></script>
+</html>
